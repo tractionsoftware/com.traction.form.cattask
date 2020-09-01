@@ -14,9 +14,9 @@
       "type": "labelname_bucket_select",
       "entry_field": "cattask_category"
     },
-    "cattask_type": {
+    "cattask_phase": {
       "type": "labelname_bucket_select",
-      "entry_field": "cattask_type"
+      "entry_field": "cattask_phase"
     },
     "cattask_relate_crm_company": {
       "type": "reference_bucket_select",
@@ -38,9 +38,9 @@
     "cattask": {
       "__inherits": "taskdialog",
       "display_name": "#{@cattask#form_cattask_display_name}",
-      //"schema_elements": "status,todo,project,goal,milestone,title,priority,property_start,property_due,color,content,attachments,tags,property_assigned,property_subscribed,property_edit_desc,property_cattask_subject,cattask_category,cattask_type,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal",
+      //"schema_elements": "status,todo,project,goal,milestone,title,priority,property_start,property_due,color,content,attachments,tags,property_assigned,property_subscribed,property_edit_desc,property_cattask_subject,cattask_category,cattask_phase,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal",
 
-      "schema_elements": "status,todo,project,title,priority,property_start,property_due,color,content,attachments,tags,property_assigned,property_subscribed,property_edit_desc,property_cattask_subject,cattask_category,cattask_type,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal",
+      "schema_elements": "status,todo,project,title,priority,property_start,property_due,color,content,attachments,tags,property_assigned,property_subscribed,property_edit_desc,property_cattask_subject,cattask_category,cattask_phase,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal",
 
       "field_title_value": "[[ /token cattask_title ]]",
       "field_property_cattask_subject_focus": "true",
@@ -89,10 +89,10 @@
       "store_type": "journal",
       "property_name": "cattask_category"
     },
-    "cattask_type": {
+    "cattask_phase": {
       "class": "tsi.sdk.data.DynamicSettingValueLabelNameBucket",
       "store_type": "journal",
-      "property_name": "cattask_type"
+      "property_name": "cattask_phase"
     },
     "cattask_target_crm_goal": {
       "display_name": "#{@cattask#entry_field_cattask_target_crm_goal_display_name}",
@@ -125,7 +125,7 @@
       "editentry_singleentry_form": "cattask",
       "newentry_link_text": "#{@cattask#entryclass_cattask_newentry_link_text}",
       "editentry_link_text": "#{@cattask#entryclass_cattask_editentry_link_text}",
-      "labelname_buckets": "todo,tags,color,goal,milestone,cattask_category,cattask_type,cattask_target_crm_goal",
+      "labelname_buckets": "todo,tags,color,goal,milestone,cattask_category,cattask_phase,cattask_target_crm_goal",
       "reference_buckets": "task_target,relationships,cattask_relate_crm_company,cattask_relate_crm_contact",
       "diffsdl": "com.traction.cattask.sdl.token.diff#cattask",
       "object_single_text": "#{@cattask#entryclass_cattask_object_single_text}",
@@ -156,7 +156,7 @@
     "cattask_category": {
       "sdl": "com.traction.sdl.fields.html#entry-labelname-bucket-value"
     },
-    "cattask_type": {
+    "cattask_phase": {
       "sdl": "com.traction.sdl.fields.html#entry-labelname-bucket-value"
     },
     "cattask_relate_crm_contact": {
@@ -182,12 +182,12 @@
       "filter_group": "pm",
       "display_name": "#{@cattask#entry_field_cattask_category_display_name}"
     },
-    "cattask_type": {
+    "cattask_phase": {
       "class": "com.traction.sdk.token.LabelNameBucketEntryField",
-      "label_name_bucket": "cattask_type",
+      "label_name_bucket": "cattask_phase",
       "filter_selectable": "true",
       "filter_group": "pm",
-      "display_name": "#{@cattask#entry_field_cattask_type_display_name}"
+      "display_name": "#{@cattask#entry_field_cattask_phase_display_name}"
     },
     "cattask_relate_crm_contact": {
       "class": "com.traction.sdk.token.ReferenceBucketEntryField",
@@ -217,7 +217,7 @@
     "cattask_category": {
       "sdl": "com.traction.sdl.fields.text#entry-labelname-bucket-value"
     },
-    "cattask_type": {
+    "cattask_phase": {
       "sdl": "com.traction.sdl.fields.text#entry-labelname-bucket-value"
     },
     "cattask_relate_crm_contact": {
@@ -289,19 +289,19 @@
       "default": "type=list,name=cattask_category,display_name=#{@cattask#setting_cattask_category_list_display_name},list=#{@cattask#setting_cattask_category_list_opt1}\\,#{@cattask#setting_cattask_category_list_opt2}\\,#{@cattask#setting_cattask_category_list_opt3}\\,#{@cattask#setting_cattask_category_list_opt4}\\,#{@cattask#setting_cattask_category_list_opt5}\\,#{@cattask#setting_cattask_category_list_opt6}\\,#{@cattask#setting_cattask_category_list_opt7}",
       "bucket_name": "cattask_category"
     },
-    "cattask_type": {
+    "cattask_phase": {
       "class": "tsi.sdk.settings.LabelNameBucketData",
-      "display_name": "#{@cattask#setting_cattask_type_display_name}",
-      "description": "#{@cattask#setting_cattask_type_description}",
-      "tip": "#{@cattask#setting_cattask_type_tip}",
+      "display_name": "#{@cattask#setting_cattask_phase_display_name}",
+      "description": "#{@cattask#setting_cattask_phase_description}",
+      "tip": "#{@cattask#setting_cattask_phase_tip}",
       "sdleditor": "com.traction.sdl.admin.settings#labelname-bucket",
       "edit_type": "false",
       "edit_name": "false",
       "edit_display_name": "true",
       "labelname_list_size": "50",
       "usedefault": "true",
-      "default": "type=list,name=cattask_type,display_name=#{@cattask#setting_cattask_type_list_display_name},list=#{@cattask#setting_cattask_type_list_opt1}\\,#{@cattask#setting_cattask_type_list_opt2}\\,#{@cattask#setting_cattask_type_list_opt3}\\,#{@cattask#setting_cattask_type_list_opt4}\\,#{@cattask#setting_cattask_type_list_opt5}",
-      "bucket_name": "cattask_type"
+      "default": "type=list,name=cattask_phase,display_name=#{@cattask#setting_cattask_phase_list_display_name},list=#{@cattask#setting_cattask_phase_list_opt1}\\,#{@cattask#setting_cattask_phase_list_opt2}\\,#{@cattask#setting_cattask_phase_list_opt3}\\,#{@cattask#setting_cattask_phase_list_opt4}\\,#{@cattask#setting_cattask_phase_list_opt5}",
+      "bucket_name": "cattask_phase"
     },
     "cattask_form_loc_type": {
       "class": "com.traction.settings.Select",
@@ -388,7 +388,7 @@
       "description": "#{@cattask#setting_cattask_expanded_form_fields_description}",
       "tip": "#{@cattask#setting_cattask_expanded_form_fields_tip}",
 
-      "options": "property_cattask_subject,status,priority,property_start,property_due,color,content,tags,property_assigned,property_subscribed,property_edit_desc,cattask_category,cattask_type,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal",
+      "options": "property_cattask_subject,status,priority,property_start,property_due,color,content,tags,property_assigned,property_subscribed,property_edit_desc,cattask_category,cattask_phase,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal",
 
       "option_status_label": "#{entry_taskdetails_heading_completionstatus}",
       "option_property_cattask_subject_label": "#{@cattask#entry_field_cattask_subject_display_name}",
@@ -402,7 +402,7 @@
       "option_property_subscribed_label": "#{newentry_subscribed_users_list_input_label}",
       "option_property_edit_desc_label": "#{editentry_describe_changes_textbox_label}",
       "option_cattask_category_label": "#{@cattask#entry_field_cattask_category_display_name}",
-      "option_cattask_type_label": "#{@cattask#entry_field_cattask_type_display_name}",
+      "option_cattask_phase_label": "#{@cattask#entry_field_cattask_phase_display_name}",
       "option_property_estimate_label": "#{entry_taskdetails_heading_estimate}",
       "option_property_duration_label": "#{entry_details_diff_heading_duration}",
       "option_task_target_label": "#{referencebucket_task_target_display_name}",
@@ -415,7 +415,7 @@
       "selecttype": "multi",
       "sdleditor": "com.traction.sdl.admin.settings#groupselect",
       "usedefault": "true",
-      "default": "priority,property_start,property_due,color,content,tags,property_assigned,property_subscribed,property_edit_desc,property_cattask_subject,cattask_category,cattask_type,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal"
+      "default": "priority,property_start,property_due,color,content,tags,property_assigned,property_subscribed,property_edit_desc,property_cattask_subject,cattask_category,cattask_phase,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal"
     },
     "cattask_collapsed_form_fields": {
       "__inherits": "cattask_expanded_form_fields",

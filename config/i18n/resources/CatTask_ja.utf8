@@ -29,7 +29,7 @@ indexentrytype_type_filter_display_name=タスク
 
 # Entry Fields
 entry_field_cattask_category_display_name=カテゴリー
-entry_field_cattask_type_display_name=タイプ
+entry_field_cattask_phase_display_name=タイプ
 entry_field_cattask_relate_crm_contact_display_name=名刺 (CRM)
 entry_field_cattask_relate_crm_company_display_name=取引先 (CRM)
 entry_field_cattask_target_crm_goal_display_name=案件 (CRM)
@@ -48,15 +48,15 @@ setting_cattask_category_list_opt5=年次:年末調整
 setting_cattask_category_list_opt6=スポット:社会保険
 setting_cattask_category_list_opt7=スポット:税金相談
 
-setting_cattask_type_display_name=タイプ タグ グループ
-setting_cattask_type_description=フォームの [タイプ] ドロップダウンに表示されるタグを設定します。
-setting_cattask_type_tip=ひとつずつ改行してください。
-setting_cattask_type_list_display_name=タイプ
-setting_cattask_type_list_opt1=特大
-setting_cattask_type_list_opt2=大
-setting_cattask_type_list_opt3=中
-setting_cattask_type_list_opt4=小
-setting_cattask_type_list_opt5=極小
+setting_cattask_phase_display_name=進行段階 タグ グループ
+setting_cattask_phase_description=フォームの [進行段階] ドロップダウンに表示されるタグを設定します。
+setting_cattask_phase_tip=ひとつずつ改行してください。
+setting_cattask_phase_list_display_name=進行段階
+setting_cattask_phase_list_opt1=計画
+setting_cattask_phase_list_opt2=着手
+setting_cattask_phase_list_opt3=検証
+setting_cattask_phase_list_opt4=完了
+setting_cattask_phase_list_opt5=中断
 
 setting_cattask_form_loc_type_display_name=投稿/編集フォームのロケーター タイプ
 setting_cattask_form_loc_type_description=投稿/編集フォームの上部に、[スペース] に加えて [プロジェクト] と [マイルストーン] のドロップダウンリストを表示するかどうかを選択します。

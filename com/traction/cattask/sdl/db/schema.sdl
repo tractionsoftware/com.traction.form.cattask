@@ -341,19 +341,19 @@
 
 <sdl.function name="task-type">
   <#column-text-value max="50">
-    <#entry-field-value name="cattask_type" />
+    <#entry-field-value name="cattask_phase" />
   </#column-text-value>
 </sdl.function>
 
 <sdl.function name="task-type1">
   <#column-text-value max="50">
-    <#separate-by-colon str="<#entry-field-value name='cattask_type' />" replace="$1" returnStr="true" />
+    <#separate-by-colon str="<#entry-field-value name='cattask_phase' />" replace="$1" returnStr="true" />
   </#column-text-value>
 </sdl.function>
 
 <sdl.function name="task-type2">
   <#column-text-value max="50">
-    <#separate-by-colon str="<#entry-field-value name='cattask_type' />" replace="$2" returnStr="false" />
+    <#separate-by-colon str="<#entry-field-value name='cattask_phase' />" replace="$2" returnStr="false" />
   </#column-text-value>
 </sdl.function>
 

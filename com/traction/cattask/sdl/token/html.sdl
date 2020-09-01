@@ -32,7 +32,7 @@
               <regex.replace regex="(.*)(%author%)(.*)" replace="$1__entry.author.displayname__$3">
                 <regex.replace regex="(.*)(%subject%)(.*)" replace="$1<entry.property.value name='cattask_subject' />$3">
                   <regex.replace regex="(.*)(%category%)(.*)" replace="$1<#entry-field-text fieldName='cattask_category' />$3">
-                    <regex.replace regex="(.*)(%type%)(.*)" replace="$1<#entry-field-text fieldName='cattask_type' />$3">
+                    <regex.replace regex="(.*)(%type%)(.*)" replace="$1<#entry-field-text fieldName='cattask_phase' />$3">
                       <regex.replace regex="(.*)(%status%)(.*)" replace="$1<#entry-field-text fieldName='tododone' />$3">
                         ${value}
                       </regex.replace>

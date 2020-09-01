@@ -140,7 +140,7 @@
     <single#details-table-row-2col-entry-fields fieldName1="priority" fieldName2="due" />
 
     <url.modify type="rchron">
-      <single#details-table-row-2col-entry-fields fieldName1="cattask_category" fieldName2="cattask_type" />
+      <single#details-table-row-2col-entry-fields fieldName1="cattask_category" fieldName2="cattask_phase" />
     </url.modify>
 
     <#row-unless-empty rowClass="crm-company" fieldName="cattask_relate_crm_company" />
