@@ -65,18 +65,18 @@
     $(this).removeClass('collapsed').addClass('expanded');
 
     // For the time being, as a workaround (JPBO25534)
-    $('.entry-cattask #title-info .entry-details > .task-details').removeClass('hide-by-default');
+    $(this).closest('.entry-details').find('div.task-details').removeClass('hide-by-default');
 
     <!--- Single View -->
-    $('.entry-cattask #title-info .entry-details > .task-details').removeClass('collapsed').addClass('expanded').stop().slideDown('fast');
+    $(this).closest('.entry-details').find('div.task-details').removeClass('collapsed').addClass('expanded').stop().slideDown('fast');
     <!--- Calendar Dialog -->
-    $(this).closest('.feed-details').find('.task-details').removeClass('collapsed').addClass('expanded').stop().slideDown('fast');
+    $(this).closest('.feed-details').find('div.task-details').removeClass('collapsed').addClass('expanded').stop().slideDown('fast');
   } else {
     $(this).removeClass('expanded').addClass('collapsed');
     <!--- Single View -->
-    $('.entry-cattask #title-info .entry-details > .task-details').removeClass('expanded').addClass('collapsed').stop().slideUp('fast');
+    $(this).closest('.feed-details').find('div.task-details').removeClass('expanded').addClass('collapsed').stop().slideUp('fast');
     <!--- Calendar Dialog -->
-    $(this).closest('.feed-details').find('.task-details').removeClass('expanded').addClass('collapsed').stop().slideUp('fast');
+    $(this).closest('.feed-details').find('div.task-details').removeClass('expanded').addClass('collapsed').stop().slideUp('fast');
   }
 
 
