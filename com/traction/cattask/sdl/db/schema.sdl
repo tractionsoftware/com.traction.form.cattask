@@ -1,0 +1,495 @@
+<!---
+
+      Copyright 1996-2020 Traction Software, Inc.
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+-->
+
+<!--- PLEASE DO NOT DELETE THIS LINE - make copyright depends on it. -->
+
+<sdl.function name="log">
+  <log type="<#logStream />">
+    <variable.defined name="msg">
+      ${msg}
+    <else>
+      <*yield />
+    </variable.defined>
+  </log>
+</sdl.function>
+
+<sdl.function name="logStream">
+  <variable.value name="logStream" default="Debug.sqlimport" />
+</sdl.function>
+
+<sdl.function name="tx-method">
+  <db.transaction>
+    <*method />
+  </db.transaction>
+</sdl.function>
+
+<sdl.function name="init">
+  <#checkInstall />
+  <variable.boolean name="installed" not>
+    <#tx-method *method="<#createSchema />" />
+    <#log msg="Cat Task: schema created" />
+    <#checkInstall />
+  </variable.boolean>
+</sdl.function>
+
+<sdl.function name="import-all">
+  <import.task.request importer="cattask">
+    <#log msg="Cat Task Data Full Import: Requested" />
+    <import.task.progress importer="cattask" denied="ignore">
+      <#log msg="status: ${status} - ${counts}" />
+    </import.task.progress>
+  <else>
+    <#log logStream="err" msg="Failed to request Cat Task Data Full Import: ${errorMessage}" />
+  </import.task.request>
+</sdl.function>
+
+<sdl.function name="import-all-task-setup">
+  <db.connect>
+    <#import-all-task-setup-impl />
+  </db.connect>
+</sdl.function>
+
+<sdl.function name="import-all-task-setup-impl">
+  <import.task.setuplock importer="cattask">
+    <#dropSchema />
+    <#init />
+  </import.task.setuplock>
+</sdl.function>
+
+<sdl.function name="import-all-task-run">
+
+  <import.task.ready importer="cattask">
+
+    <#log logStream="err" msg="Cat Task Data Full Import: Starting" />
+
+    <db.connect>
+
+      <entries proj="*" type="rchron" entrytypesfilter="task" edate="all" supportschunking="false" max="-1" sort="1" volume="full">
+        <switch value="__entry.displaytype__">
+          <case.default>
+            <#tx-method *method="<#record-task />" />
+            <import.task.incrementcount name="cattask" />
+          </case.default>
+        </switch>
+      </entries>
+
+    </db.connect>
+
+    <#log logStream="err" msg="Cat Task Data Full Import: Complete (${importSummary})" />
+
+  <else>
+
+    <#log logStream="err" msg="Cat Task Data Full Import: Not Ready (${errorMessage})" />
+
+  </import.task.ready>
+
+</sdl.function>
+
+<sdl.function name="getVersion">1</sdl.function>
+
+<sdl.function name="checkInstall">
+  <db.checkinstalled tableName="TSI_PM_TASK_CAT" versionTableName="TSI_PM_TASK_CAT_VERSION">
+    <variable.global.set name="installed" value="true" />
+    <variable.global.set name="version" value="${installedVersion}" />
+  <else>
+    <variable.global.set name="installed" value="false" />
+  </db.checkinstalled>
+</sdl.function>
+
+<sdl.function name="createSchema">
+
+<console>Creating schema...</console>
+<console>Creating TSI_PM_TASK_CAT...</console>
+  <db.update>
+    CREATE TABLE TSI_PM_TASK_CAT (
+      ENTRYID       ${db_spc_bigint}  PRIMARY KEY,  <!--- Entry FQID. -->
+      PROJID        INT               NOT NULL,     <!--- ID of the entry's containing space. -->
+      TITLE         VARCHAR(250)      NOT NULL,     <!--- Entry title. -->
+      DATE          TIMESTAMP         NOT NULL,     <!--- Entry creation date/time. -->
+      DISPLAYTYPE   VARCHAR(24),
+      PRI           INT, <!--- Priority -->
+      EST           #$db_spc_decimal$(7,2), <!--- Estimate -->
+      DUR           #$db_spc_decimal$(7,2), <!--- Duration (Time spent) -->
+      TYPE          VARCHAR(50),
+      TYPE1         VARCHAR(50),
+      TYPE2         VARCHAR(50),
+      CAT           VARCHAR(50),
+      CAT1          VARCHAR(50),
+      CAT2          VARCHAR(50)
+    )
+  </db.update>
+
+  <console>Creating TSI_PM_TASK_CAT_CRM_COMPANY...</console>
+  <db.update>
+    CREATE TABLE TSI_PM_TASK_CAT_CRM_COMPANY (
+      UUID          CHAR(36)  PRIMARY KEY,
+      DATE          TIMESTAMP,         <!--- Date/time of posting the task entry -->
+      ENTRYID       ${db_spc_bigint},  <!--- Task entry FQID -->
+      COMPANYID     ${db_spc_bigint}   <!--- Target CRM Company entry FQID -->
+    )
+  </db.update>
+
+  <console>Creating TSI_PM_TASK_CAT_CRM_CONTACT...</console>
+  <db.update>
+    CREATE TABLE TSI_PM_TASK_CAT_CRM_CONTACT (
+      UUID          CHAR(36)  PRIMARY KEY,
+      DATE          TIMESTAMP,         <!--- Date/time of posting the task entry -->
+      ENTRYID       ${db_spc_bigint},  <!--- Task entry FQID -->
+      CONTACTID     ${db_spc_bigint}   <!--- Target CRM Contact entry FQID -->
+    )
+  </db.update>
+
+  <console>Creating TSI_PM_TASK_CAT_VERSION...</console>
+  <db.update>
+    CREATE TABLE TSI_PM_TASK_CAT_VERSION (
+	   VERSION   INT
+    )
+  </db.update>
+
+  <db.update prepared="true" int="<#getVersion />">
+    insert into TSI_PM_TASK_CAT_VERSION values ( ? )
+  </db.update>
+
+</sdl.function>
+
+<sdl.function name="dropSchema">
+  <#checkInstall />
+  <variable.boolean name="installed">
+    <#tx-method *method="<#dropSchema-impl />" />
+  <else>
+  <!---
+    <#log msg="Cat Task schema not installed. Not dropping.">
+  -->
+  </variable.boolean>
+</sdl.function>
+
+<sdl.function name="dropSchema-impl">
+
+  <db.update>
+    drop table TSI_PM_TASK_CAT
+  </db.update>
+
+  <db.update>
+    drop table TSI_PM_TASK_CAT_VERSION
+  </db.update>
+
+  <db.update>
+    drop table TSI_PM_TASK_CAT_CRM_COMPANY
+  </db.update>
+
+  <db.update>
+    drop table TSI_PM_TASK_CAT_CRM_CONTACT
+  </db.update>
+
+</sdl.function>
+
+<sdl.function name="entry-record">
+  <scope.hasentry>
+    <db.connect>
+      <switch value="__entry.displaytype__">
+        <case.default>
+          <#tx-method *method="<#record-task />" />
+        </case.default>
+      </switch>
+    </db.connect>
+  <else>
+    <#log logStream="err" msg="No entry in scope for Cat Task entry-record" />
+  </scope.hasentry>
+</sdl.function>
+
+<sdl.function name="entry-update">
+  <scope.hasentry>
+    <db.connect>
+      <switch value="__entry.displaytype__">
+        <case.default>
+          <#tx-method *method="<#update-task />" />
+        </case.default>
+      </switch>
+    </db.connect>
+  <else>
+    <#log logStream="err" msg="No entry in scope for Cat Task entry-update" />
+  </scope.hasentry>
+</sdl.function>
+
+<sdl.function name="entry-reclassify">
+  <#entry-update />
+</sdl.function>
+
+<sdl.function name="entry-erase">
+  <scope.hasentry>
+    <db.connect>
+      <switch value="__entry.displaytype__">
+        <case.default>
+          <#tx-method *method="<#erase-task />" />
+        </case.default>
+      </switch>
+    </db.connect>
+  <else>
+    <#log logStream="err" msg="No entry in scope for Cat Task entry-erase" />
+  </scope.hasentry>
+</sdl.function>
+
+<sdl.function name="record-task">
+  <db.update prepared="true"
+             bigint="__entry.tractionid.fqid__"
+             int="__entry.tractionid.project.id__"
+             varchar="<#entry-title />"
+             timestamp="<#entry-date-timestamp />"
+             varchar="__entry.displaytype__"
+             int="<#task-priority />"
+             decimal="<#task-estimate />"
+             decimal="<#task-duration />"
+             varchar="<#task-type />"
+             varchar="<#task-type1 />"
+             varchar="<#task-type2 />"
+             varchar="<#task-cat />"
+             varchar="<#task-cat1 />"
+             varchar="<#task-cat2 />" >
+    insert into TSI_PM_TASK_CAT values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
+  </db.update>
+  <#record-target-crm-company />
+  <#record-target-crm-contact />
+</sdl.function>
+
+<sdl.function name="record-target-crm-company">
+  <!--- This should be inside of the scope of an task entry. -->
+  <foreach list="<entry.field name='cattask_relate_crm_company'>__entry.field.value__</entry.field>">
+    <db.update prepared="true"
+               varchar="__UUID__"
+               timestamp="<datetime dateformat='<#timestamp-dateformat />' timezone='GMT' />"
+               bigint="__entry.tractionid.fqid__"
+               bigint="__foreach.current__"
+      >
+      insert into TSI_PM_TASK_CAT_CRM_COMPANY values ( ?, ?, ?, ? )
+    </db.update>
+  </foreach>
+</sdl.function>
+
+<sdl.function name="record-target-crm-contact">
+  <!--- This should be inside of the scope of an task entry. -->
+  <foreach list="<entry.field name='cattask_relate_crm_contact'>__entry.field.value__</entry.field>">
+    <db.update prepared="true"
+               varchar="__UUID__"
+               timestamp="<datetime dateformat='<#timestamp-dateformat />' timezone='GMT' />"
+               bigint="__entry.tractionid.fqid__"
+               bigint="__foreach.current__"
+      >
+      insert into TSI_PM_TASK_CAT_CRM_CONTACT values ( ?, ?, ?, ? )
+    </db.update>
+  </foreach>
+</sdl.function>
+
+<sdl.function name="erase-target-crm-company">
+  <db.update prepared="true" bigint="__entry.tractionid.fqid__">
+    delete from TSI_PM_TASK_CAT_CRM_COMPANY where ENTRYID = ?
+  </db.update>
+</sdl.function>
+
+<sdl.function name="erase-target-crm-contact">
+  <db.update prepared="true" bigint="__entry.tractionid.fqid__">
+    delete from TSI_PM_TASK_CAT_CRM_CONTACT where ENTRYID = ?
+  </db.update>
+</sdl.function>
+
+<sdl.function name="update-task">
+  <#erase-task />
+  <#record-task />
+</sdl.function>
+
+<sdl.function name="erase-task">
+  <db.update prepared="true" bigint="__entry.tractionid.fqid__">
+    delete from TSI_PM_TASK_CAT where ENTRYID = ?
+  </db.update>
+  <#erase-target-crm-company />
+  <#erase-target-crm-contact />
+</sdl.function>
+
+<sdl.function name="entry-date-timestamp">
+  <entry.date dateformat="<#timestamp-dateformat />" timezone="GMT" />
+</sdl.function>
+
+<sdl.function name="timestamp-dateformat">yyyy-MM-dd HH:mm:ss.SSS</sdl.function>
+
+<sdl.function name="column-text-value">
+  <sql.encode>
+    <truncate max="${max}" append="">
+      <*yield />
+    </truncate>
+  </sql.encode>
+</sdl.function>
+
+<sdl.function name="entry-title">
+  <#column-text-value max="250">
+    __entry.titletext__
+  </#column-text-value>
+</sdl.function>
+
+<sdl.function name="task-type">
+  <#column-text-value max="50">
+    <#entry-field-value name="cattask_type" />
+  </#column-text-value>
+</sdl.function>
+
+<sdl.function name="task-type1">
+  <#column-text-value max="50">
+    <#separate-by-colon str="<#entry-field-value name='cattask_type' />" replace="$1" returnStr="true" />
+  </#column-text-value>
+</sdl.function>
+
+<sdl.function name="task-type2">
+  <#column-text-value max="50">
+    <#separate-by-colon str="<#entry-field-value name='cattask_type' />" replace="$2" returnStr="false" />
+  </#column-text-value>
+</sdl.function>
+
+<sdl.function name="task-cat">
+  <#column-text-value max="50">
+    <#entry-field-value name="cattask_category" />
+  </#column-text-value>
+</sdl.function>
+
+<sdl.function name="task-cat1">
+  <#column-text-value max="50">
+    <#separate-by-colon str="<#entry-field-value name='cattask_category' />" replace="$1" returnStr="true" />
+  </#column-text-value>
+</sdl.function>
+
+<sdl.function name="task-cat2">
+  <#column-text-value max="50">
+    <#separate-by-colon str="<#entry-field-value name='cattask_category' />" replace="$2" returnStr="false" />
+  </#column-text-value>
+</sdl.function>
+
+<sdl.function name="separate-by-colon">
+  <compare.contains "${str}" ":">
+    <regex.replace regex="^(.+):(.+)" replace="${replace}">
+      ${str}
+    </regex.replace>
+  <else>
+    <var.boolean name="returnStr" default="true">
+      ${str}
+    </var.boolean>
+  </compare.contains>
+</sdl.function>
+
+<sdl.function name="task-priority">
+  <#entry-field-value name="priority" defaultValue="-1" />
+</sdl.function>
+
+<sdl.function name="task-estimate">
+  <compare.equals "<#prop name='estimate' />" "" trim="true">
+    -1
+  <else>
+    <#prop name="estimate" />
+  </compare.equals>
+</sdl.function>
+
+<sdl.function name="task-duration">
+  <compare.equals "<#prop name='duration' />" "" trim="true">
+    -1
+  <else>
+    <#prop name="duration" />
+  </compare.equals>
+</sdl.function>
+
+<sdl.function name="check-exponent">
+  <compare.contains "<*yield>" "E" ignorecase="true">
+    <#remove-exponent />
+  <else>
+    <*yield />
+  </compare.contains>
+</sdl.function>
+
+<sdl.function name="remove-exponent">
+	<var.set name="beforeDecimalPoint">
+		<regex.replace regex="^([0-9]+)\.([0-9]+)[Ee]([0-9]+)$" replace="$1">
+			<*yield>
+		</regex.replace>
+	</var.set>
+	<var.set name="afterDecimalPoint">
+		<regex.replace regex="^([0-9]+)\.([0-9]+)[Ee]([0-9]+)$" replace="$2">
+			<*yield>
+		</regex.replace>
+	</var.set>
+	<var.set name="afterExponent">
+		<regex.replace regex="^([0-9]+)\.([0-9]+)[Ee]([0-9]+)$" replace="$3">
+			<*yield>
+		</regex.replace>
+	</var.set>
+
+  <var.set name="zeros">
+  	<switch value="<jeval>${afterExponent} - <string.length>${afterDecimalPoint}</string.length></jeval>">
+      <case value="13">0000000000000</case>
+      <case value="12">000000000000</case>
+      <case value="11">00000000000</case>
+      <case value="10">0000000000</case>
+  		<case value="9">000000000</case>
+  		<case value="8">00000000</case>
+  		<case value="7">0000000</case>
+  		<case value="6">000000</case>
+  		<case value="5">00000</case>
+  		<case value="4">0000</case>
+  		<case value="3">000</case>
+  		<case value="2">00</case>
+  		<case value="1">0</case>
+      <case value="0"></case>
+  		<case.default>
+  			E${afterExponent}
+  		</case.default>
+  	</switch>
+  </var.set>
+
+	<var.set name="result">
+		${beforeDecimalPoint}${afterDecimalPoint}${zeros}
+	</var.set>
+
+  ${result}
+
+</sdl.function>
+
+<sdl.function name="entry-field-content">
+  <transform.html2plaintext withEntities="false">
+    <entry.field name="${name}">
+      <compare.equals "__entry.field.content__" "" trim="true">
+        <var.value name="default" default="<var.value name='defaultValue' default='' />" />
+      <else>
+        __entry.field.content__
+      </compare.equals>
+    </entry.field>
+  </transform.html2plaintext>
+</sdl.function>
+
+<sdl.function name="entry-field-value">
+  <entry.field name="${name}">
+    <compare.equals "__entry.field.value__" "" trim="true">
+      <var.value name="default" default="<var.value name='defaultValue' default='' />" />
+    <else>
+      __entry.field.value__
+    </compare.equals>
+  </entry.field>
+</sdl.function>
+
+<sdl.function name="prop">
+  <var.defined name="max">
+    <string.substring end="${max}">
+      <entry.property.value name="${name}" />
+    </string.substring>
+  <else>
+    <entry.property.value name="${name}" />
+  </var.defined>
+</sdl.function>

@@ -1,0 +1,325 @@
+<!---
+
+      Copyright 1996-2020 Traction Software, Inc.
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+-->
+
+<!--- PLEASE DO NOT DELETE THIS LINE - make copyright depends on it. -->
+<sdl.import name="shared" template="com.traction.sdl.gwtrpc.shared" />
+<sdl.import name="fm" template="com.traction.sdl.gwtrpc.fm" />
+<sdl.import name="taskform" template="com.traction.sdl.tasks.taskform" />
+
+<!--- Developpers can override these functions. -->
+<sdl.function name="all-field-names">
+  <!--- todo,project,goal,milestone,title,attachments -->
+  cattask_category,cattask_type,content,property_assigned,property_subscribed,priority,property_start,property_due,property_estimate,property_duration,color,tags,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal,property_edit_desc
+</sdl.function>
+
+<sdl.function name="expanded-field-names">
+  <config.db.value name="cattask_expanded_form_fields" />
+</sdl.function>
+
+<sdl.function name="collapsed-field-names">
+  <config.db.value name="cattask_collapsed_form_fields" />
+</sdl.function>
+
+<sdl.function name="cattask">
+
+  <var.set name="allFieldNames"><#all-field-names /></var.set>
+  <var.set name="expandedFieldNames"><#expanded-field-names /></var.set>
+  <var.set name="collapsedFieldNames"><#collapsed-field-names /></var.set>
+
+  <var.set name="colspan">
+    <plugin name="com.traction.crm" requireenabled="true">2<else>1</plugin>
+  </var.set>
+
+  <switch value="<config.db.value name='cattask_form_status_style' />">
+    <case value="checkbox"><#form-with-status-checkbox /></case>
+    <case value="dropdown"><#form-with-status-dropdown /></case>
+  </switch>
+
+</sdl.function>
+
+<sdl.function name="form-with-status-checkbox">
+  <gwt.rpc.form form="cattask">
+    <div class="task-form expanded">
+      <taskform#field-error />
+      <#cattask-form-loc />
+      <!--- taskform#destination classname="fm-loc" / -->
+      <div class="o">
+        <#form-minimal-with-checkbox />
+        <#form-expanded-with-checkbox />
+      </div>
+    </div>
+  </gwt.rpc.form>
+</sdl.function>
+
+<sdl.function name="form-minimal-with-checkbox">
+  <table>
+    <#row-status-title />
+  </table>
+</sdl.function>
+
+<sdl.function name="row-status-title">
+  <tr>
+    <form.field name="todo">
+      <td class="c">
+        <fm#field />
+      </td>
+    </form.field>
+    <form.field name="property_cattask_subject">
+      <td class="t">
+        <variable.defined name="defaultTitle">
+          <variable.set name="defaultValue" value="${defaultTitle}" />
+        </variable.defined>
+        <fm#field />
+      </td>
+    </form.field>
+  </tr>
+</sdl.function>
+
+<sdl.function name="form-expanded-with-checkbox">
+  <table class="task-formlayout cattask-formlayout">
+    <!--- The title form field is a "must" even if it is hidden. -->
+    <fm#row rowClass="title hidden" field="title" colspan="${colspan}" />
+    <#form-rows-shared />
+  </table>
+</sdl.function>
+
+<sdl.function name="form-row">
+  <switch value="__foreach.current__">
+    <case value="content">
+      <fm#row rowClass="<#row-class class='__foreach.current__' /> vtop" field="__foreach.current__" colspan="${colspan}" />
+      <fm#row rowClass="attachments" field="attachments" colspan="${colspan}" />
+    </case>
+    <case value="property_edit_desc">
+      <property.defined name="fqid">
+        <fm#row rowClass="<#row-class class='__foreach.current__' />" field="__foreach.current__" colspan="${colspan}" />
+      </property.defined>
+    </case>
+    <case.default>
+      <fm#row rowClass="<#row-class class='__foreach.current__' />" field="__foreach.current__" colspan="${colspan}" />
+    </case.default>
+    <case value="cattask_relate_crm_company">
+      <var.set name="helpTitle" value="#{@cattask#help_title_crm_company}" />
+      <var.set name="helpMsg" value="#{@cattask#help_msg_crm_company}" />
+      <var.set name="formName" value="crm_company" />
+      <#row-crm-3cols rowClass="<#row-class class='__foreach.current__' /> row-crm" field="__foreach.current__" />
+    </case>
+    <case value="cattask_relate_crm_contact">
+      <var.set name="helpTitle" value="#{@cattask#help_title_crm_contact}" />
+      <var.set name="helpMsg" value="#{@cattask#help_msg_crm_contact}" />
+      <var.set name="formName" value="crm_contact" />
+      <#row-crm-3cols rowClass="<#row-class class='__foreach.current__' /> row-crm" field="__foreach.current__" />
+    </case>
+    <case value="cattask_target_crm_goal">
+      <var.set name="helpTitle" value="#{@cattask#help_title_crm_opportunity}" />
+      <var.set name="helpMsg" value="#{@cattask#help_msg_crm_opportunity}" />
+      <var.set name="formName" value="crm_goal" />
+      <#row-crm-3cols rowClass="<#row-class class='__foreach.current__' /> row-crm" field="__foreach.current__" />
+    </case>
+  </switch>
+</sdl.function>
+
+<sdl.function name="row-class">
+  <join separator=" ">
+    <regex.replace regex="(property_)(.+)" replace="$2">${class}</regex.replace>
+    __join.separator__
+    <compare.contains ",${expandedFieldNames}," "${class}">show-expanded<else>hidden</compare.contains>
+    __join.separator__
+    <compare.contains ",${collapsedFieldNames}," "${class}">show-collapsed</compare.contains>
+  </join>
+</sdl.function>
+
+<sdl.function name="form-rows-shared">
+  <foreach list="${allFieldNames}">
+    <#form-row />
+  </foreach>
+</sdl.function>
+
+<sdl.function name="row-crm-3cols">
+  <form.field name="${field}">
+    <tr<variable.defined name="rowClass"> class="fm-row #$rowClass$"<else> class="fm-row"</variable.defined>>
+      <fm#field-label-cell cellNumber="1" />
+      <td class="row-__field.name__ td2<variable.defined name='class'> ${class}</variable.defined>">
+        <fm#field />
+        <fm#field-description />
+      </td>
+      <td class="row-__field.name__ td3<variable.defined name='class'> ${class}</variable.defined>">
+        <a class="button" rg="<htmlattributevalue.encode>a#form&form=${formName}&onsave=rv</htmlattributevalue.encode>"><i></i>#{Add}</a>
+      </td>
+    </tr>
+  </form.field>
+</sdl.function>
+
+<sdl.function name="dialog-item">
+  <#dialog />
+</sdl.function>
+
+<sdl.function name="form-with-status-dropdown">
+  <fm#body form="cattask" *destination="<#cattask-form-loc />">
+    <#form-minimal-with-dropdown />
+    <#form-rows-shared />
+  </fm#body>
+</sdl.function>
+
+<sdl.function name="form-minimal-with-dropdown">
+  <fm#row rowClass="status <#row-class class='status' />" field="status" colspan="${colspan}" />
+  <fm#row rowClass="cattask_subject <#row-class class='property_cattask_subject' />" field="property_cattask_subject" colspan="${colspan}" />
+</sdl.function>
+
+<sdl.function name="cattask-form-loc">
+  <switch value="<config.db.value name='cattask_form_loc_type' />">
+    <case value="projgoalms">
+      <fm#loc-project-goal-milestone-publish />
+    </case>
+    <case value="projgoal">
+      <fm#loc-project-goal-publish />
+    </case>
+    <case value="proj">
+      <fm#loc-project-publish />
+    </case>
+  </switch>
+</sdl.function>
+
+<sdl.function name="task-crm-company-default">
+  <entries type="multi" tractionid="<property.value name='edit_targets' />" max="1">
+    <switch value="__entry.displaytype__">
+      <case value="bizmtgnote">
+        <#entry-field-value name="bizmtgnote_target_crm_company" />
+      </case>
+      <case value="salesrevenue">
+        <#entry-field-value name="salesrevenue_crm_relates_company" />
+      </case>
+      <case value="cattask">
+        <#entry-field-value name="cattask_relate_crm_company" />
+      </case>
+    </switch>
+  </entries>
+</sdl.function>
+
+<sdl.function name="task-crm-contact-default">
+  <entries type="multi" tractionid="<property.value name='edit_targets' />" max="1">
+    <switch value="__entry.displaytype__">
+      <case value="bizmtgnote">
+        <#entry-field-value name="bizmtgnote_target_crm_contact" />
+      </case>
+      <case value="salesrevenue">
+        <#entry-field-value name="salesrevenue_crm_relates_contact" />
+      </case>
+      <case value="cattask">
+        <#entry-field-value name="cattask_relate_crm_contact" />
+      </case>
+    </switch>
+  </entries>
+</sdl.function>
+
+<sdl.function name="entry-field-value">
+  <entry.field name="${name}">__entry.field.value__</entry.field>
+</sdl.function>
+
+<!--- Filter the options for the CRM Contact field
+      by the selection in the CRM Company field.
+      See JPBO24741. [Takashi, Mon May 18, 2020] -->
+<sdl.function name="crm-contacts-for-companies">
+
+  <!---
+  <console>attributes = ${attributes}</console>
+  <console>values = ${values}</console>
+  <console>query = ${query}</console>
+  <console>project = <variable.value name="project" default="none" /></console>
+  -->
+
+  <variable.local.set name="fieldName" value="${attributes[name]}" />
+  <variable.local.set name="fieldValue">
+    <variable.local.value name="values" index="${fieldName}" />
+  </variable.local.set>
+  <variable.local.init name="currentValueFqids" type="set" />
+
+  <foreach listvariable="fieldValue" separator=" " set="fqid">
+    <variable.local.whitespace name="fqid" not>
+      <variable.local.append name="currentValueFqids" value="${fqid}" />
+    </variable.local.whitespace>
+  </foreach>
+
+<!---
+<console>current value: "${values[${fieldName}]}" => [${currentValueFqids}]</console>
+-->
+
+  <variable.local.set name="companyFieldValue">
+    <string.trim>
+      <variable.local.value name="values" index="cattask_relate_crm_company" default="" />
+    </string.trim>
+  </variable.local.set>
+
+  <variable.local.whitespace name="companyFieldValue" default="">
+    <#contacts-for-companies-all />
+  <else>
+    <#contacts-for-companies-selected />
+  </variable.local.whitespace>
+
+</sdl.function>
+
+<sdl.function name="contacts-for-companies-all">
+  <journalrequest proj="<compare.equals '<variable.value name=project />' "">*<else>${project}</compare.equals>">
+    <unified.search query="${query}"
+                    sources="entries"
+                    entries_scope="title"
+                    entries_filter_proj="*"
+                    entries_filter_index_types="crm_contact"
+                    supportschunking="true">
+      <unified.search.results supportschunking="false">
+        <#contact-for-company-result />
+      </unified.search.results>
+    </unified.search>
+  </journalrequest>
+</sdl.function>
+
+<sdl.function name="contacts-for-companies-selected">
+
+  <variable.local.set name="companyFqids">
+    <regex.replace regex=" " replace=",">
+      ${companyFieldValue}
+    </regex.replace>
+  </variable.local.set>
+
+  <!---
+  <console>company FQIDs: ${companyFieldValue} => ${companyFqids}</console>
+  -->
+
+  <variable.local.set name="textSearch">
+    <queryformat mode="native" wildcardMode="prefix" query="${query}" field="title" />
+  </variable.local.set>
+  <variable.local.set name="search">
+    <join separator=" AND ">x(crm_contact)__join.separator__${textSearch}</join>
+  </variable.local.set>
+
+  <entries type="multi" fqid="${companyFqids}">
+    <references.bytype.entries direction="incoming"
+                               include="::*:response:works"
+                               volume="full"
+                               search="${search}"
+                               supportschunking="false">
+      <#contact-for-company-result />
+    </references.bytype.entries>
+  </entries>
+
+</sdl.function>
+
+<sdl.function name="contact-for-company-result">
+  <variable.local.contains name="currentValueFqids" value="__entry.tractionid.fqid__" not>
+    <*entry />
+  </variable.local.contains>
+</sdl.function>

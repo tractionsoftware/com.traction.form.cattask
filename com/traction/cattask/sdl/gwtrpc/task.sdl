@@ -1,0 +1,161 @@
+<!---
+
+      Copyright 1996-2020 Traction Software, Inc.
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+-->
+
+<!--- PLEASE DO NOT DELETE THIS LINE - make copyright depends on it. -->
+
+<sdl.import name="single" template="com.traction.sdl.gwtrpc.single" />
+<sdl.import name="shared" template="com.traction.sdl.gwtrpc.shared" />
+
+<sdl.function name="data-table-section">
+  <#summary-header />
+  <#details-table />
+</sdl.function>
+
+<!---
+  Summary Information Section (Summary and Action Buttons)
+-->
+<sdl.function name="summary-header">
+  <div class="summary-header cattask">
+    <#summary-details />
+    <#summary-actions />
+  </div>
+</sdl.function>
+
+<sdl.function name="summary-details">
+  <div class="summary-details">
+    <foreach list="<#summary-details-fields />">
+      <switch value="__foreach.current__">
+        <case.default>
+          <#summary-default-item />
+        </case.default>
+      </switch>
+    </foreach>
+    <#collapse-expand-link />
+  </div>
+</sdl.function>
+
+<sdl.function name="summary-details-fields">
+  assigned,estimate,priority,due,cattask_category,cattask_relate_crm_company
+</sdl.function>
+
+<sdl.function name="collapse-expand-link">
+  <span class="exp">
+    <a class="collapsed label-sticker lightgray" onclick="<#exp-on-click />"><i></i></a>
+  </span>
+</sdl.function>
+
+<sdl.function name="exp-on-click">
+  <!--- Hide and expand the task-details. -->
+  if ($(this).hasClass('collapsed')) {
+    $(this).removeClass('collapsed').addClass('expanded');
+
+    // For the time being, as a workaround (JPBO25534)
+    $('.entry-cattask #title-info .entry-details > .task-details').removeClass('hide-by-default');
+
+    <!--- Single View -->
+    $('.entry-cattask #title-info .entry-details > .task-details').removeClass('collapsed').addClass('expanded').stop().slideDown('fast');
+    <!--- Calendar Dialog -->
+    $(this).parents('.feed-details').children('.task-details').removeClass('collapsed').addClass('expanded').stop().slideDown('fast');
+  } else {
+    $(this).removeClass('expanded').addClass('collapsed');
+    <!--- Single View -->
+    $('.entry-cattask #title-info .entry-details > .task-details').removeClass('expanded').addClass('collapsed').stop().slideUp('fast');
+    <!--- Calendar Dialog -->
+    $(this).parents('.feed-details').children('.task-details').removeClass('expanded').addClass('collapsed').stop().slideUp('fast');
+  }
+
+
+</sdl.function>
+
+<sdl.function name="summary-default-item">
+  <entry.field name="__foreach.current__">
+    <compare.equals "__entry.field.value__" "" trim="true" not>
+      <switch value="__foreach.current__">
+        <case value="assigned" value="priority">
+          __entry.field.content__
+        </case>
+        <case.default>
+          <#summary-details-pillbox inner="<#strip-content>__entry.field.content__</#strip-content>" />
+        </case.default>
+      </switch>
+    </compare.equals>
+  </entry.field>
+</sdl.function>
+
+<sdl.function name="summary-details-pillbox">
+  <span class="__entry.field.name__<#label-class /><var.defined name='class'> ${class}</var.defined>" title="__entry.field.displayname__"<var.defined name="dataCount"> data-count="${dataCount}"</var.defined><var.defined name="style"> style="${style}"</var.defined>>
+    ${inner}
+  </span>
+</sdl.function>
+
+<sdl.function name="label-class">
+  <compare.equals "__entry.field.name__" "assigned" "subscribed" "priority" not> label-sticker</compare.equals>
+</sdl.function>
+
+<sdl.function name="strip-content">
+  <transform.html2plaintext withEntities="false">
+    <*yield />
+  </transform.html2plaintext>
+</sdl.function>
+
+<sdl.function name="summary-actions">
+  <compare.equals "<config.view.value name='viewtype' />" "single">
+    <div class="button-group-dark entry-actions">
+      <#viewaction-button actionName="Update" buttonClass="edit" buttonText="#{action_Update_entry}" />
+      <#viewaction-button actionName="Erase" buttonClass="erase" buttonText="#{action_Erase_tool}" />
+    </div>
+  </compare.equals>
+</sdl.function>
+
+<sdl.function name="viewaction-button">
+  <viewaction name="${actionName}" extras="<variable.value name='extras' />">
+    <a <shared#viewaction-href-or-region /> class="button<var.defined name='buttonClass'> ${buttonClass}</var.defined>"<var.defined name="buttonTitle"> title="${buttonTitle}"</var.defined>><i></i><var.value name="buttonText" default="__viewaction.displayname__" /></a>
+  </viewaction>
+</sdl.function>
+
+<!---
+  Entry Details Table
+-->
+<sdl.function name="details-table">
+  <single#details-table containerClass="task-details cattask-details-table-container hide-by-default" tableClass="cattask-details-table">
+
+    <single#details-table-row-2col-entry-fields fieldName1="assigned" fieldName2="estimate" />
+    <single#details-table-row-2col-entry-fields fieldName1="subscribed" fieldName2="duration" />
+    <single#details-table-row-2col-entry-fields fieldName1="completion_status" fieldName2="start" />
+    <single#details-table-row-2col-entry-fields fieldName1="priority" fieldName2="due" />
+
+    <url.modify type="rchron">
+      <single#details-table-row-2col-entry-fields fieldName1="cattask_category" fieldName2="cattask_type" />
+    </url.modify>
+
+    <#row-unless-empty rowClass="crm-company" fieldName="cattask_relate_crm_company" />
+    <#row-unless-empty rowClass="crm-contact" fieldName="cattask_relate_crm_contact" />
+    <#row-unless-empty rowClass="crm-goal" fieldName="cattask_target_crm_goal" />
+
+  </single#details-table>
+</sdl.function>
+
+
+
+<sdl.function name="row-unless-empty">
+  <entry.field name="${fieldName}">
+    <compare.equals "__entry.field.value__" "" trim="true" not>
+      <single#details-table-row-entry-field rowClass="${rowClass}" fieldName="${fieldName}" />
+    </compare.equals>
+  </entry.field>
+</sdl.function>

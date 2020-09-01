@@ -1,0 +1,62 @@
+<!---
+
+      Copyright 1996-2020 Traction Software, Inc.
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+-->
+
+<!--- PLEASE DO NOT DELETE THIS LINE - make copyright depends on it. -->
+
+<sdl.function name="crm-event-company">
+  <!--- Set maxResults="" to enable the loop of the entry.field.labels tag.
+        If multiple targets are set, the field should display the exclamation icon. -->
+  <#labelname-bucket-target targetType="crm_company" enableFQID="true" maxResults="" />
+</sdl.function>
+
+<sdl.function name="crm-goal">
+  <entry.goals entrytypesfilter="crm_goal">
+    <a class="crm-goal" href="__entry.url__" title="__entry.tractionid__: __entry.titletext__">__entry.titletext__</a>
+    <#styled-target-none />
+  </entry.goals>
+</sdl.function>
+
+<sdl.function name="labelname-bucket-target">
+  <entry.field.labels max="<variable.local.value name='maxResults' default='1' />">
+    <#styled-target-none />
+    <var.boolean name="enableFQID" default="false">
+      <var.set name="fqid">__label.labelname.tractionid.fqid__</var.set>
+    </var.boolean>
+    <loop.only not><i class="alert"></i></loop.only>
+    <#styled-target url="__label.labelname.tractionid.url__" display="__label.displayname__" />
+  </entry.field.labels>
+</sdl.function>
+
+<sdl.function name="reference-bucket-target">
+  <entry.field.references max="<variable.local.value name='maxResults' default='1' />">
+    <#styled-target-none />
+    <entry type="single" fqid="__entry.field.value__">
+      <#styled-target url="__entry.url__" display="__entry.title__" />
+    </entry>
+  </entry.field.references>
+</sdl.function>
+
+<sdl.function name="styled-target">
+  <span class="cattask-target cattask-target-${targetType}"><a href="${url}"<var.defined name="fqid"> data-fqid="${fqid}"</var.defined>><i></i>${display}</a><*after-styled-target *default="" /></span>
+</sdl.function>
+
+<sdl.function name="styled-target-none">
+  <loop.none>
+    <com.traction.sdl.fields.html#styled-none />
+  </loop.none>
+</sdl.function>

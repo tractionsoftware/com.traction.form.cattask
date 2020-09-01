@@ -1,0 +1,39 @@
+<!---
+
+      Copyright 1996-2020 Traction Software, Inc.
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+-->
+
+<!--- PLEASE DO NOT DELETE THIS LINE - make copyright depends on it. -->
+
+<sdl.function name="crm-event-company">
+  <!--- Set maxResults="" to enable the loop of the entry.field.labels tag.
+      If multiple targets are set, the field should display the exclamation icon. -->
+      <#labelname-bucket-target maxResults="" />
+</sdl.function>
+
+<sdl.function name="crm-goal">
+  <entry.goals entrytypesfilter="crm_goal">
+    __entry.tractionid.fqid__
+  </entry.goals>
+</sdl.function>
+
+<sdl.function name="labelname-bucket-target">
+  <join separator=",">
+    <entry.field.labels max="<variable.local.value name='maxResults' default='1' />">
+      __label.labelname.tractionid.fqid__<$join.separator$>
+    </entry.field.labels>
+  </join>
+</sdl.function>

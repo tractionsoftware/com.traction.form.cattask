@@ -1,0 +1,114 @@
+plugin_display_name=カテゴリー付きタスク (CatTask)
+plugin_description=このプラグインは、標準のタスクの投稿/編集フォームにカテゴリーなどのフィールド（入力欄）を追加します。CRM の取引先や名刺とも紐付けられます。
+
+# Form
+form_cattask_display_name=タスク エディター
+
+# Form Help
+help_title_crm_company=取引先と関連付ける
+help_msg_crm_company=このタスクをCRMの取引先と関連付けられます。欄の中に文字を入力して検索し、目的の取引先を選択してください。
+help_title_crm_contact=名刺と関連付ける
+help_msg_crm_contact=このタスクをCRMの名刺と関連付けられます。欄の中に文字を入力して検索し、目的の名刺を選択してください。
+help_title_crm_opportunity=案件と関連付ける
+help_msg_crm_opportunity=このタスクをCRMの案件と関連付けられます。欄の中に文字を入力して検索し、目的の案件を選択してください。
+
+# Simple Form
+button_text_expand=詳細表示
+button_text_collapse=簡易表示
+
+# Entry Class
+entryclass_cattask_display_name=タスク
+entryclass_cattask_newentry_link_text=新しいタスク
+entryclass_cattask_editentry_link_text=タスクの編集
+entryclass_cattask_object_single_text=タスク
+entryclass_cattask_object_single_indefinite_text=タスク
+
+# Index Type
+indexentrytype_cattask_display_name=タスク
+indexentrytype_type_filter_display_name=タスク
+
+# Entry Fields
+entry_field_cattask_category_display_name=カテゴリー
+entry_field_cattask_type_display_name=タイプ
+entry_field_cattask_relate_crm_contact_display_name=名刺 (CRM)
+entry_field_cattask_relate_crm_company_display_name=取引先 (CRM)
+entry_field_cattask_target_crm_goal_display_name=案件 (CRM)
+entry_field_cattask_subject_display_name=件名
+
+# Settings
+setting_cattask_category_display_name=カテゴリー タグ グループ
+setting_cattask_category_description=フォームの [カテゴリー] ドロップダウンに表示されるタグを設定します。
+setting_cattask_category_tip=ひとつずつ改行してください。
+setting_cattask_category_list_display_name=カテゴリー
+setting_cattask_category_list_opt1=月次:会計
+setting_cattask_category_list_opt2=月次:報告書
+setting_cattask_category_list_opt3=月次:訪問
+setting_cattask_category_list_opt4=年次:決算
+setting_cattask_category_list_opt5=年次:年末調整
+setting_cattask_category_list_opt6=スポット:社会保険
+setting_cattask_category_list_opt7=スポット:税金相談
+
+setting_cattask_type_display_name=タイプ タグ グループ
+setting_cattask_type_description=フォームの [タイプ] ドロップダウンに表示されるタグを設定します。
+setting_cattask_type_tip=ひとつずつ改行してください。
+setting_cattask_type_list_display_name=タイプ
+setting_cattask_type_list_opt1=特大
+setting_cattask_type_list_opt2=大
+setting_cattask_type_list_opt3=中
+setting_cattask_type_list_opt4=小
+setting_cattask_type_list_opt5=極小
+
+setting_cattask_form_loc_type_display_name=投稿/編集フォームのロケーター タイプ
+setting_cattask_form_loc_type_description=投稿/編集フォームの上部に、[スペース] に加えて [プロジェクト] と [マイルストーン] のドロップダウンリストを表示するかどうかを選択します。
+setting_cattask_form_loc_type_tip=
+setting_cattask_form_loc_type_projgoalms_label=スペース, プロジェクト, マイルストーン
+setting_cattask_form_loc_type_projgoal_label=スペース, プロジェクト
+setting_cattask_form_loc_type_proj_label=スペースだけ
+
+setting_cattask_display_category_field_display_name=[カテゴリー] 欄を表示
+setting_cattask_display_category_field_description=ここで [はい] を選択すると、投稿/編集フォームに [カテゴリー] 欄が表示され、作成するタスクを分類できるようになります。
+setting_cattask_display_category_field_tip=
+
+setting_cattask_display_type_field_display_name=[タイプ] 欄を表示
+setting_cattask_display_type_field_description=ここで [はい] を選択すると、投稿/編集フォームに [タイプ] 欄が表示され、作成するタスクをさらに分類できるようになります。必要に応じて使用してください。
+setting_cattask_display_type_field_tip=
+
+setting_cattask_display_task_target_field_display_name=[タスク追加先] 欄を表示
+setting_cattask_display_task_target_field_description=ここで [はい] を選択すると、投稿/編集フォームに [タスク追加先] 欄が表示され、作成中のタスクの紐付け先を確認したり変更したりできるようになります。
+setting_cattask_display_task_target_field_tip=
+
+setting_cattask_display_crm_company_target_field_display_name=[CRM 取引先] 欄を表示
+setting_cattask_display_crm_company_target_field_description=ここで [はい] を選択すると、投稿/編集フォームに [CRM 取引先] 欄が表示され、CRM の取引先記事と関連付けられます。
+setting_cattask_display_crm_company_target_field_tip=CRM プラグインが必要
+
+setting_cattask_display_crm_contact_target_field_display_name=[CRM 名刺] 欄を表示
+setting_cattask_display_crm_contact_target_field_description=ここで [はい] を選択すると、投稿/編集フォームに [CRM 取引先] 欄が表示され、CRM の名刺記事と関連付けられます。
+setting_cattask_display_crm_contact_target_field_tip=CRM プラグインが必要
+
+setting_cattask_display_crm_goal_target_field_display_name=[CRM 案件] 欄を表示
+setting_cattask_display_crm_goal_target_field_description=ここで [はい] を選択すると、投稿/編集フォームに [CRM 案件] 欄が表示されます。<br>注意: この [CRM 案件] 欄は標準の [プロジェクト] 欄と同時に表示することはできません。[CRM 案件] 欄を表示する場合は、[投稿/編集フォームのロケーター タイプ] 設定で [スペースだけ] を選択してください。
+setting_cattask_display_crm_goal_target_field_tip=CRM プラグインが必要
+
+setting_cattask_display_customer_field_display_name=[顧客名] 欄を表示
+setting_cattask_display_customer_field_description=ここで [はい] を選択すると、投稿/編集フォームに [顧客名] 欄が表示されます。
+setting_cattask_display_customer_field_tip=CRM プラグインが未インストールの場合のみ表示
+
+setting_cattask_form_status_style_display_name=[状況] 欄のタイプ
+setting_cattask_form_status_style_description=タスクの「to do」と「done」の状況を切り替えるためのスイッチのタイプを選択できます。
+setting_cattask_form_status_style_tip=
+setting_cattask_form_status_style_opt_checkbox=チェックボックス
+setting_cattask_form_status_style_opt_dropdown=ドロップダウン リスト
+
+setting_cattask_expanded_form_fields_display_name=展開フォームに表示
+setting_cattask_expanded_form_fields_description=ここで選択されたフィールド（欄）が展開されたフォームに表示されます。
+setting_cattask_expanded_form_fields_tip=
+
+setting_cattask_collapsed_form_fields_display_name=折りたたみフォームに表示
+setting_cattask_collapsed_form_fields_description=ここで選択されたフィールド（欄）が折りたたんだフォームに表示されます。注意: 上の [展開フォームに表示] で選択されていないフィールド（欄）は、折りたたみフォームには表示されません。
+setting_cattask_collapsed_form_fields_tip=
+
+setting_cattask_title_format_display_name=タイトルの書式
+setting_cattask_title_format_description=タスク記事のタイトルは、ここで設定された書式で表示されます。<br>\
+利用可能: %subject%, %entryid%, %space%, %date%, %start%, %due%, %assignee%, %author%, %category%, %type%, %status%
+setting_cattask_title_format_tip=
+setting_cattask_title_format_default=%category% %subject%

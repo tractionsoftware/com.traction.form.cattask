@@ -1,0 +1,175 @@
+/* line 44, ../../scss/cattask/cattask.scss */
+.add-drop .formmenu-cattask a {
+  padding-left: 0;
+}
+/* line 46, ../../scss/cattask/cattask.scss */
+.add-drop .formmenu-cattask a i {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 27px;
+  text-align: center;
+  display: inline-block;
+}
+/* line 52, ../../scss/cattask/cattask.scss */
+.add-drop .formmenu-cattask a i:before {
+  content: "\f14b";
+  display: inline-block;
+  speak: none;
+}
+
+/* line 65, ../../scss/cattask/cattask.scss */
+.fm-form-cattask .Caption i {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding-right: 0.41667em;
+}
+/* line 69, ../../scss/cattask/cattask.scss */
+.fm-form-cattask .Caption i:before {
+  content: "\f046";
+  display: inline-block;
+  speak: none;
+}
+/* line 74, ../../scss/cattask/cattask.scss */
+.fm-form-cattask td.t {
+  padding-right: 0;
+}
+/* line 79, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row:not(.row-crm) .td1 {
+  width: 5%;
+}
+/* line 80, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row:not(.row-crm) .td2 {
+  width: 95%;
+}
+/* line 83, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.row-crm .td1 {
+  white-space: nowrap;
+  padding-right: 4px;
+}
+/* line 87, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.row-crm .td1, .fm-form-cattask tr.fm-row.row-crm .td3 {
+  width: 5%;
+}
+/* line 88, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.row-crm .td2 {
+  width: 90%;
+}
+/* line 89, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.row-crm .td3 {
+  padding-left: 4px;
+}
+/* line 92, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.row-crm .td3 a.button i {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 0.25em;
+}
+/* line 95, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.row-crm .td3 a.button i:before {
+  content: "\f067";
+}
+/* line 102, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row td {
+  padding: 2px 0;
+}
+/* line 103, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.hidden {
+  display: none;
+}
+/* line 107, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.assigned .pillbox, .fm-form-cattask tr.fm-row.subscribed .pillbox, .fm-form-cattask tr.fm-row.tags .pillbox, .fm-form-cattask tr.fm-row.cattask_relate_crm_company .pillbox, .fm-form-cattask tr.fm-row.cattask_relate_crm_contact .pillbox, .fm-form-cattask tr.fm-row.task_target .pillbox, .fm-form-cattask tr.fm-row.edit_desc .pillbox {
+  max-width: initial;
+}
+/* line 110, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.assigned .td2 input, .fm-form-cattask tr.fm-row.subscribed .td2 input, .fm-form-cattask tr.fm-row.tags .td2 input, .fm-form-cattask tr.fm-row.cattask_relate_crm_company .td2 input, .fm-form-cattask tr.fm-row.cattask_relate_crm_contact .td2 input, .fm-form-cattask tr.fm-row.task_target .td2 input, .fm-form-cattask tr.fm-row.edit_desc .td2 input {
+  width: 100%;
+}
+/* line 116, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.fm-row.crm-goal .combobox-entries i {
+  margin-right: 4px;
+  display: inline-block;
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* line 120, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.fm-row.crm-goal .combobox-entries i:before {
+  content: "\f0ae";
+  speak: none;
+}
+/* line 125, ../../scss/cattask/cattask.scss */
+.fm-form-cattask tr.fm-row.fm-row.crm-goal .combobox-entries span.s {
+  display: inline-block;
+  color: #999;
+  font-size: 0.8em;
+  line-height: 15px;
+  padding: 0 4px 0 0;
+  color: #666;
+}
+
+/* line 144, ../../scss/cattask/cattask.scss */
+.fi .ft .task-feed-details .v > a.label-sticker:hover {
+  color: white;
+  filter: brightness(120%);
+  text-decoration: none;
+}
+
+/* line 154, ../../scss/cattask/cattask.scss */
+.cattask-details-table-container.hide-by-default {
+  display: none;
+}
+
+/* line 162, ../../scss/cattask/cattask.scss */
+.summary-header {
+  margin: 1em 0;
+  display: flex;
+  justify-content: space-between;
+}
+/* line 168, ../../scss/cattask/cattask.scss */
+.summary-header .exp a i {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #999;
+}
+/* line 172, ../../scss/cattask/cattask.scss */
+.summary-header .exp a.collapsed i:before {
+  content: "\f0d7";
+}
+/* line 175, ../../scss/cattask/cattask.scss */
+.summary-header .exp a.expanded i:before {
+  content: "\f0d8";
+}
+
+/* line 188, ../../scss/cattask/cattask.scss */
+.cattask-details-table tr.crm-company .v a.label-sticker, .cattask-details-table tr.crm-contact .v a.label-sticker {
+  color: white;
+  font-weight: normal;
+  margin-left: 0;
+  margin-right: 1px;
+  font-size: 100%;
+}
+/* line 194, ../../scss/cattask/cattask.scss */
+.cattask-details-table tr.crm-company .v a.label-sticker:hover, .cattask-details-table tr.crm-contact .v a.label-sticker:hover {
+  color: white;
+  filter: brightness(120%);
+  text-decoration: none;
+}

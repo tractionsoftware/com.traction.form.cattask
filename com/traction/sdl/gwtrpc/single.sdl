@@ -1,0 +1,51 @@
+<!---
+
+      Copyright 1996-2020 Traction Software, Inc.
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+-->
+
+<!--- PLEASE DO NOT DELETE THIS LINE - make copyright depends on it. -->
+
+<sdl.function name="addmenu-first-option">
+  <switch value="__entry.customentrytype__">
+    <case value="task">
+      cattask
+    </case>
+    <case value="milestone">
+      <milestone#addmenu-first-option />
+    </case>
+    <case value="goal">
+      <goal#addmenu-first-option />
+    </case>
+    <case.default>
+      post
+    </case.default>
+  </switch>
+</sdl.function>
+
+
+<!--- Enabled containerClass
+      This is to set the "hide-by-default" class until
+      the "calendar-dialog-load" Proteus handler gets available. (JPBO25534) -->
+<sdl.function name="details-table">
+  <div class="<var.value name='containerClass' default='task-details' />">
+    <table<variable.defined name="tableClass"> class="#$tableClass$"</variable.defined>>
+      <*yield />
+      <variable.boolean name="spacer" default="false">
+        <tr><td colspan="2">&nbsp;</td></tr>
+      </variable.boolean>
+    </table>
+  </div>
+</sdl.function>

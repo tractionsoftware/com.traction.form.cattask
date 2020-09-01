@@ -1,0 +1,57 @@
+<!---
+
+      Copyright 1996-2020 Traction Software, Inc.
+
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+      You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+      Unless required by applicable law or agreed to in writing, software
+      distributed under the License is distributed on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      See the License for the specific language governing permissions and
+      limitations under the License.
+
+-->
+
+<!--- PLEASE DO NOT DELETE THIS LINE - make copyright depends on it. -->
+
+<sdl.function name="title">
+  <#title-regex-parms value="<config.db.value name='cattask_title_format' />" />
+</sdl.function>
+
+<sdl.function name="title-regex-parms">
+  <regex.replace regex="(.*)(%entryid%)(.*)" replace="$1__entry.tractionid__$3">
+    <regex.replace regex="(.*)(%space%)(.*)" replace="$1__entry.tractionid.project.displayname__$3">
+      <regex.replace regex="(.*)(%date%)(.*)" replace="$1<entry.date dateformat='long' />$3">
+        <regex.replace regex="(.*)(%due%)(.*)" replace="$1<entry.duedate dateformat='long' />$3">
+          <regex.replace regex="(.*)(%start%)(.*)" replace="$1<entry.startdate dateformat='long' />$3">
+            <regex.replace regex="(.*)(%assignee%)(.*)" replace="$1<#entry-field-text fieldName='assigned' />$3">
+              <regex.replace regex="(.*)(%author%)(.*)" replace="$1__entry.author.displayname__$3">
+                <regex.replace regex="(.*)(%subject%)(.*)" replace="$1<entry.property.value name='cattask_subject' />$3">
+                  <regex.replace regex="(.*)(%category%)(.*)" replace="$1<#entry-field-text fieldName='cattask_category' />$3">
+                    <regex.replace regex="(.*)(%type%)(.*)" replace="$1<#entry-field-text fieldName='cattask_type' />$3">
+                      <regex.replace regex="(.*)(%status%)(.*)" replace="$1<#entry-field-text fieldName='tododone' />$3">
+                        ${value}
+                      </regex.replace>
+                    </regex.replace>
+                  </regex.replace>
+                </regex.replace>
+              </regex.replace>
+            </regex.replace>
+          </regex.replace>
+        </regex.replace>
+      </regex.replace>
+    </regex.replace>
+  </regex.replace>
+</sdl.function>
+
+
+<sdl.function name="entry-field-text">
+  <transform.html2plaintext withEntities="false">
+    <var.set name="none" value="" />
+    <entry.field name="${fieldName}">__entry.field.content__</entry.field>
+  </transform.html2plaintext>
+</sdl.function>

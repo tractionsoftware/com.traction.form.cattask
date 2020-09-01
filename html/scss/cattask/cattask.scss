@@ -1,0 +1,202 @@
+@charset "utf-8";
+
+@mixin icon_expanded { content: "\f0d8"; }
+@mixin icon_collapsed { content: "\f0d7"; }
+
+@mixin fontawesome-basic {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin combobox-entries-field($formName, $icon) {
+  .fm-html.#{formName} {
+    .combobox-entries {
+      i {
+        margin-right: 4px;
+        display: inline-block;
+        @include fontawesome-basic;
+        &:before {
+          content: "\\#{$icon}";
+          speak: none;
+        }
+      }
+      span.s {
+        display: inline-block;
+        color: #999;
+        font-size: 0.8em;
+        line-height: 15px;
+        padding: 0 4px 0 0;
+        color: #666;
+      }
+    }
+  }
+}
+
+// ------------------------------------
+// Sidebar Drop Menu
+// ------------------------------------
+.add-drop {
+  .formmenu-cattask {
+    a {
+      padding-left: 0;
+      i {
+        @include fontawesome-basic;
+        width: 27px;
+        text-align: center;
+        display: inline-block;
+        }
+      i:before {
+        content: "\f14b";
+        display: inline-block;
+        speak: none;
+      }
+    }
+  }
+}
+
+// ------------------------------------
+//   GWT Form
+// ------------------------------------
+.fm-form-cattask {
+  .Caption i {
+    @include fontawesome-basic;
+    padding-right: 0.41667em;
+  }
+  .Caption i:before {
+    content: "\f046";
+    display: inline-block;
+    speak: none;
+  }
+  td.t {
+    padding-right: 0;
+  }
+  tr.fm-row {
+    &:not(.row-crm) {
+      .td1 { width: 5%; }
+      .td2 { width: 95% }
+    }
+    &.row-crm {
+      .td1 {
+        white-space: nowrap;
+        padding-right: 4px;
+      }
+      .td1, .td3 { width: 5%; }
+      .td2 { width: 90% }
+      .td3 {
+        padding-left: 4px;
+        a.button {
+          i {
+            @include fontawesome-basic;
+            margin-right: 0.25em;
+            &:before {
+              content: "\f067";
+            }
+          }
+        }
+      }
+    }
+    td { padding: 2px 0; }
+    &.hidden {
+      display: none;
+    }
+    &.assigned, &.subscribed, &.tags, &.cattask_relate_crm_company, &.cattask_relate_crm_contact, &.task_target, &.edit_desc {
+      .pillbox {
+        max-width: initial;
+      }
+      .td2 input {
+        width: 100%;
+      }
+    }
+    &.fm-row.crm-goal {
+      .combobox-entries {
+        i {
+          margin-right: 4px;
+          display: inline-block;
+          @include fontawesome-basic;
+          &:before {
+            content: "\f0ae";
+            speak: none;
+          }
+        }
+        span.s {
+          display: inline-block;
+          color: #999;
+          font-size: 0.8em;
+          line-height: 15px;
+          padding: 0 4px 0 0;
+          color: #666;
+        }
+      }
+    }
+  }
+}
+
+// ------------------------------------
+//   Feed Entry Details
+// ------------------------------------
+.fi .ft {
+  .task-feed-details {
+    .v {
+      &> a.label-sticker:hover {
+        color: white;
+        filter: brightness(120%);
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.cattask-details-table-container {
+  &.hide-by-default {
+    display: none;
+  }
+}
+
+// ------------------------------------
+//   Summary Section
+// ------------------------------------
+.summary-header {
+  margin: 1em 0;
+  display: flex;
+  justify-content: space-between;
+
+  .exp {
+    a i {
+      @include fontawesome-basic;
+      color: #999;
+    }
+    a.collapsed i:before {
+      @include icon_collapsed;
+    }
+    a.expanded i:before {
+      @include icon_expanded;
+    }
+  }
+
+}
+
+// ------------------------------------
+//   Single Entry Task-Detals Table
+// ------------------------------------
+.cattask-details-table {
+  tr.crm-company, tr.crm-contact {
+    .v {
+      a.label-sticker {
+        color: white;
+        font-weight: normal;
+        margin-left: 0;
+        margin-right: 1px;
+        font-size: 100%;
+        &:hover {
+          color: white;
+          filter: brightness(120%);
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
