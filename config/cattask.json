@@ -38,7 +38,9 @@
     "cattask": {
       "__inherits": "taskdialog",
       "display_name": "#{@cattask#form_cattask_display_name}",
-      "schema_elements": "status,todo,project,goal,milestone,title,priority,property_start,property_due,color,content,attachments,tags,property_assigned,property_subscribed,property_edit_desc,property_cattask_subject,cattask_category,cattask_type,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal",
+      //"schema_elements": "status,todo,project,goal,milestone,title,priority,property_start,property_due,color,content,attachments,tags,property_assigned,property_subscribed,property_edit_desc,property_cattask_subject,cattask_category,cattask_type,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal",
+
+      "schema_elements": "status,todo,project,title,priority,property_start,property_due,color,content,attachments,tags,property_assigned,property_subscribed,property_edit_desc,property_cattask_subject,cattask_category,cattask_type,property_estimate,property_duration,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal",
 
       "field_title_value": "[[ /token cattask_title ]]",
       "field_property_cattask_subject_focus": "true",
