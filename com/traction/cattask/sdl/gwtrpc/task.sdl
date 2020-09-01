@@ -70,13 +70,13 @@
     <!--- Single View -->
     $('.entry-cattask #title-info .entry-details > .task-details').removeClass('collapsed').addClass('expanded').stop().slideDown('fast');
     <!--- Calendar Dialog -->
-    $(this).parents('.feed-details').children('.task-details').removeClass('collapsed').addClass('expanded').stop().slideDown('fast');
+    $(this).closest('.feed-details').find('.task-details').removeClass('collapsed').addClass('expanded').stop().slideDown('fast');
   } else {
     $(this).removeClass('expanded').addClass('collapsed');
     <!--- Single View -->
     $('.entry-cattask #title-info .entry-details > .task-details').removeClass('expanded').addClass('collapsed').stop().slideUp('fast');
     <!--- Calendar Dialog -->
-    $(this).parents('.feed-details').children('.task-details').removeClass('expanded').addClass('collapsed').stop().slideUp('fast');
+    $(this).closest('.feed-details').find('.task-details').removeClass('expanded').addClass('collapsed').stop().slideUp('fast');
   }
 
 
