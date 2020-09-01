@@ -55,7 +55,7 @@
 
 <sdl.function name="collapse-expand-link">
   <span class="exp">
-    <a class="collapsed label-sticker lightgray" onclick="<#exp-on-click />"><i></i></a>
+    <a class="collapsed label-sticker white" onclick="<#exp-on-click />"><i></i></a>
   </span>
 </sdl.function>
 

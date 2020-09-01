@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-@mixin icon_expanded { content: "\f0d8"; }
-@mixin icon_collapsed { content: "\f0d7"; }
+@mixin icon_expanded { content: "\f077"; }
+@mixin icon_collapsed { content: "\f078"; }
 
 @mixin fontawesome-basic {
   font-family: FontAwesome;
@@ -165,9 +165,15 @@
   justify-content: space-between;
 
   .exp {
-    a i {
-      @include fontawesome-basic;
-      color: #999;
+    a {
+      border: 1px solid #ddd;
+      &:hover, &:active {
+        text-decoration: none;
+      }
+      i {
+        @include fontawesome-basic;
+        color: #bbb;
+      }
     }
     a.collapsed i:before {
       @include icon_collapsed;

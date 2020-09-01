@@ -141,6 +141,14 @@
   justify-content: space-between;
 }
 /* line 168, ../../scss/cattask/cattask.scss */
+.summary-header .exp a {
+  border: 1px solid #ddd;
+}
+/* line 170, ../../scss/cattask/cattask.scss */
+.summary-header .exp a:hover, .summary-header .exp a:active {
+  text-decoration: none;
+}
+/* line 173, ../../scss/cattask/cattask.scss */
 .summary-header .exp a i {
   font-family: FontAwesome;
   font-weight: normal;
@@ -148,18 +156,18 @@
   text-decoration: inherit;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #999;
+  color: #bbb;
 }
-/* line 172, ../../scss/cattask/cattask.scss */
+/* line 178, ../../scss/cattask/cattask.scss */
 .summary-header .exp a.collapsed i:before {
-  content: "\f0d7";
+  content: "\f078";
 }
-/* line 175, ../../scss/cattask/cattask.scss */
+/* line 181, ../../scss/cattask/cattask.scss */
 .summary-header .exp a.expanded i:before {
-  content: "\f0d8";
+  content: "\f077";
 }
 
-/* line 188, ../../scss/cattask/cattask.scss */
+/* line 194, ../../scss/cattask/cattask.scss */
 .cattask-details-table tr.crm-company .v a.label-sticker, .cattask-details-table tr.crm-contact .v a.label-sticker {
   color: white;
   font-weight: normal;
@@ -167,7 +175,7 @@
   margin-right: 1px;
   font-size: 100%;
 }
-/* line 194, ../../scss/cattask/cattask.scss */
+/* line 200, ../../scss/cattask/cattask.scss */
 .cattask-details-table tr.crm-company .v a.label-sticker:hover, .cattask-details-table tr.crm-contact .v a.label-sticker:hover {
   color: white;
   filter: brightness(120%);
