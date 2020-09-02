@@ -103,7 +103,7 @@
     &.hidden {
       display: none;
     }
-    &.assigned, &.subscribed, &.tags, &.cattask_relate_crm_company, &.cattask_relate_crm_contact, &.task_target, &.edit_desc {
+    &.cattask_subject, &.assigned, &.subscribed, &.tags, &.cattask_relate_crm_company, &.cattask_relate_crm_contact, &.task_target, &.edit_desc {
       .pillbox {
         max-width: initial;
       }

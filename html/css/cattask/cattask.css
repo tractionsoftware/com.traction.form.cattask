@@ -89,11 +89,11 @@
   display: none;
 }
 /* line 107, ../../scss/cattask/cattask.scss */
-.fm-form-cattask tr.fm-row.assigned .pillbox, .fm-form-cattask tr.fm-row.subscribed .pillbox, .fm-form-cattask tr.fm-row.tags .pillbox, .fm-form-cattask tr.fm-row.cattask_relate_crm_company .pillbox, .fm-form-cattask tr.fm-row.cattask_relate_crm_contact .pillbox, .fm-form-cattask tr.fm-row.task_target .pillbox, .fm-form-cattask tr.fm-row.edit_desc .pillbox {
+.fm-form-cattask tr.fm-row.cattask_subject .pillbox, .fm-form-cattask tr.fm-row.assigned .pillbox, .fm-form-cattask tr.fm-row.subscribed .pillbox, .fm-form-cattask tr.fm-row.tags .pillbox, .fm-form-cattask tr.fm-row.cattask_relate_crm_company .pillbox, .fm-form-cattask tr.fm-row.cattask_relate_crm_contact .pillbox, .fm-form-cattask tr.fm-row.task_target .pillbox, .fm-form-cattask tr.fm-row.edit_desc .pillbox {
   max-width: initial;
 }
 /* line 110, ../../scss/cattask/cattask.scss */
-.fm-form-cattask tr.fm-row.assigned .td2 input, .fm-form-cattask tr.fm-row.subscribed .td2 input, .fm-form-cattask tr.fm-row.tags .td2 input, .fm-form-cattask tr.fm-row.cattask_relate_crm_company .td2 input, .fm-form-cattask tr.fm-row.cattask_relate_crm_contact .td2 input, .fm-form-cattask tr.fm-row.task_target .td2 input, .fm-form-cattask tr.fm-row.edit_desc .td2 input {
+.fm-form-cattask tr.fm-row.cattask_subject .td2 input, .fm-form-cattask tr.fm-row.assigned .td2 input, .fm-form-cattask tr.fm-row.subscribed .td2 input, .fm-form-cattask tr.fm-row.tags .td2 input, .fm-form-cattask tr.fm-row.cattask_relate_crm_company .td2 input, .fm-form-cattask tr.fm-row.cattask_relate_crm_contact .td2 input, .fm-form-cattask tr.fm-row.task_target .td2 input, .fm-form-cattask tr.fm-row.edit_desc .td2 input {
   width: 100%;
 }
 /* line 116, ../../scss/cattask/cattask.scss */
