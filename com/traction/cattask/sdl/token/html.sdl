@@ -34,7 +34,13 @@
                   <regex.replace regex="(.*)(%category%)(.*)" replace="$1<#entry-field-text fieldName='cattask_category' />$3">
                     <regex.replace regex="(.*)(%type%)(.*)" replace="$1<#entry-field-text fieldName='cattask_phase' />$3">
                       <regex.replace regex="(.*)(%status%)(.*)" replace="$1<#entry-field-text fieldName='tododone' />$3">
-                        ${value}
+                        <regex.replace regex="(.*)(%crmcompany%)(.*)" replace="$1<#crm-company />$3">
+                          <regex.replace regex="(.*)(%crmcontact%)(.*)" replace="$1<#crm-contact />$3">
+                            <regex.replace regex="(.*)(%crmgoal%)(.*)" replace="$1<#crm-gpal />$3">
+                              ${value}
+                            </regex.replace>
+                          </regex.replace>
+                        </regex.replace>
                       </regex.replace>
                     </regex.replace>
                   </regex.replace>
@@ -48,6 +54,30 @@
   </regex.replace>
 </sdl.function>
 
+<sdl.function name="crm-company">
+  <transform.html2plaintext withEntities="false">
+    <entry.field name="cattask_relate_crm_company">
+      __entry.field.content__
+    </entry.field>
+  </transform.html2plaintext>
+</sdl.function>
+
+<sdl.function name="crm-contact">
+  <transform.html2plaintext withEntities="false">
+    <entry.field name="cattask_relate_crm_contact">
+      __entry.field.content__
+    </entry.field>
+  </transform.html2plaintext>
+</sdl.function>
+
+<sdl.function name="crm-goal">
+  <!--- ISSUE: #### this entry field doesn't return the project name. -->
+  <transform.html2plaintext withEntities="false">
+    <entry.field name="cattask_target_crm_goal">
+      __entry.field.content__
+    </entry.field>
+  </transform.html2plaintext>
+</sdl.function>
 
 <sdl.function name="entry-field-text">
   <transform.html2plaintext withEntities="false">

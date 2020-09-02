@@ -109,6 +109,6 @@ setting_cattask_collapsed_form_fields_tip=
 
 setting_cattask_title_format_display_name=タイトルの書式
 setting_cattask_title_format_description=タスク記事のタイトルは、ここで設定された書式で表示されます。<br>\
-利用可能: %subject%, %entryid%, %space%, %date%, %start%, %due%, %assignee%, %author%, %category%, %type%, %status%
+利用可能: %subject%, %entryid%, %space%, %date%, %start%, %due%, %assignee%, %author%, %category%, %phase%, %status%, %crmcompany%, %crmcontact%, %crmgoal%
 setting_cattask_title_format_tip=
 setting_cattask_title_format_default=%category% %subject%
