@@ -410,7 +410,7 @@
       "option_cattask_relate_crm_contact_label": "#{@cattask#entry_field_cattask_relate_crm_contact_display_name}",
       "option_cattask_target_crm_goal_label": "#{@cattask#entry_field_cattask_target_crm_goal_display_name}",
 
-      "ordered": "false",
+      "ordered": "true",
       "sorted": "true",
       "selecttype": "multi",
       "sdleditor": "com.traction.sdl.admin.settings#groupselect",

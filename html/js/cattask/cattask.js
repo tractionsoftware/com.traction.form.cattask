@@ -18,7 +18,7 @@ Proteus.addHandler("load", function(){
 
 Proteus.addHandler("form-load", function(){
 
-  $('.fm-form-cattask .task-formlayout .fm-row').each(function(){
+  $('.fm-form-cattask .task-formlayout .fm-row, .fm-form-cattask .fm-formlayout .fm-row').each(function(){
     if (!$(this).hasClass('show-collapsed')) {
       $(this).hide();
     }

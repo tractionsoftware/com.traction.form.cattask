@@ -29,7 +29,7 @@ indexentrytype_type_filter_display_name=タスク
 
 # Entry Fields
 entry_field_cattask_category_display_name=カテゴリー
-entry_field_cattask_phase_display_name=タイプ
+entry_field_cattask_phase_display_name=進行段階
 entry_field_cattask_relate_crm_contact_display_name=名刺 (CRM)
 entry_field_cattask_relate_crm_company_display_name=取引先 (CRM)
 entry_field_cattask_target_crm_goal_display_name=案件 (CRM)

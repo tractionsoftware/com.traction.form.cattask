@@ -24,7 +24,7 @@
 <!--- Developpers can override these functions. -->
 <sdl.function name="all-field-names">
   <!--- todo,project,goal,milestone,title,attachments -->
-  cattask_category,cattask_phase,content,property_assigned,property_subscribed,priority,property_start,property_due,property_estimate,property_duration,color,tags,task_target,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal,property_edit_desc
+  cattask_category,cattask_phase,content,property_assigned,property_subscribed,priority,property_start,property_due,property_estimate,property_duration,color,cattask_relate_crm_company,cattask_relate_crm_contact,cattask_target_crm_goal,task_target,tags,property_edit_desc
 </sdl.function>
 
 <sdl.function name="expanded-field-names">
